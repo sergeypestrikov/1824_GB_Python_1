@@ -22,3 +22,5 @@ def num_translate(num):
 
 
 num_translate('five')
+
+# Написать функцию num_translate(), переводящую числительные от 0 до 10 c английского на русский язык.
