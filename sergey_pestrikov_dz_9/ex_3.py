@@ -7,31 +7,26 @@ name, surname, position (должность), income (доход); послед�
 на реальных данных: создать экземпляры класса Position, передать данные, проверить значения атрибутов,
 вызвать методы экземпляров.
 """
-class Worker:
-    name = None
-    surename = None
-    position = None
-    __income = None
+income = {'wage': 10000, 'bonus': 5000}
 
-    def __init__(self, name, surename, position, income):
-        self.name = name
-        self.surname = surename
+
+class Worker:
+
+    def __init__(self, name: str, surename: str, position: str, income: dict):
+        self.name = name.title()
+        self.surname = surename.title()
         self.position = position
-        self.income = income
+        self._income = income
 
 class Position(Worker):
-    def __init__(self, name, surname, position, income):
-        super().__init__(name, surname, position, income)
 
     def get_full_name(self):
-        return self.name + self.surname
+        return f'{self.name} {self.surname}'
 
     def get_total_income(self):
-        self.__income = income
-        return self.__income
+        return sum(self._income.values())
 
 
-worker = Worker('Стивен', 'Джобс', 'CEO', {'wage': 10000, 'bonus': 5000})
+worker = Position('Стивен', 'Джобс', 'CEO', income)
 
-worker.get_full_name()
-worker.get_total_income()
+print(worker.get_full_name(), worker.get_total_income())

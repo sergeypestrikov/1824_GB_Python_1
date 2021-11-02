@@ -8,61 +8,90 @@ TownCar, SportCar, WorkCar, PoliceCar; добавьте в базовый кла
 Создайте экземпляры классов, передайте значения атрибутов. Выполните доступ к атрибутам, выведите результат.
 Вызовите методы и покажите результат.
 """
+import random
+
 class Car:
-    speed = None
-    color = None
-    name = None
-    is_police = None
 
-
-    def __init__(self, speed, color, name, is_police = False):
-        self.speed = speed
+    def __init__(self, speed: int, color: str, name: str, is_police: bool):
+        self.speed = 0
         self.color = color
         self.name = name
         self.is_police = is_police
 
     def go(self):
-        print('Машина едет')
+        self.speed = random.randint(10, 100)
+        print(f'Машина едет со скоростью {self.speed} км/ч')
 
     def stop(self):
-        print('Машина остановилась')
+        self.speed = 0
+        print(f'Машина остановилась')
 
-    def turn(self, direction):
-        direction = 'налево'
-        print('Машина повернула', direction)
+    def turn(self, direction: str):
+        if self.speed > 30:
+            print(f'Машина повернула на скорости {self.speed} км/ч')
+        else:
+            print(f'Машина повернула на {direction}')
 
+
+    def show_speed(self):
+        if self.speed == 0:
+            print(f'Машина стоит')
+        else:
+            print(f'Текущая сторость {self.speed} км/ч')
 
 
 class TownCar(Car):
-    def __init__(self, speed, color, name):
-        super().__init__(speed, color, name)
 
-class SportCar(Car):
-    def __init__(self, speed, color, name):
-        super().__init__(speed, color, name)
+    def show_speed(self):
+        if 0 < self.speed <= 60:
+            print(f'Скорость машины {self.speed} км/ч')
+        elif self.speed > 60:
+            print(f'Превышение! Скорость {self.speed} км/ч')
+        else:
+            print(f'Машина стоит')
 
 class WorkCar(Car):
-    def __init__(self, speed, color, name):
-        super().__init__(speed, color, name)
+
+    def show_speed(self):
+        if 0 < self.speed <= 30:
+            print(f'Скорость машины {self.speed} км/ч')
+        elif self.speed > 30:
+            print(f'Превышение! Скорость {self.speed} км/ч')
+        else:
+            print(f'Машина стоит')
+
+class SportCar(Car):
+    color: str = 'желтый'
+    name: str = 'Dodge Charger'
+    is_polise: bool = False
+
 
 class PoliceCar(Car):
-    def __init__(self, speed, color, name, is_police=True):
-        super().__init__(speed, color, name)
+    color: str = 'белый'
+    name: str = 'BMW'
+    is_polise: bool = True
+
+    def show_speed(self):
+        print(f'Со спецсигналами')
 
 
-mini = TownCar(60, 'red', 'MINI')
-print(mini.speed, mini.color, mini.name, mini.is_police)
+mini = TownCar(30, 'красный', 'MINI', False)
 mini.go()
+mini.show_speed()
+mini.turn('лево')
 
-dodge = SportCar(150, 'yellow', 'Dodge')
-print(dodge.speed, dodge.color, dodge.name, dodge.is_police)
+ford = TownCar(40, 'черный', 'Ford', False)
+ford.go()
+ford.show_speed()
+ford.turn('право')
+
+dodge = SportCar(120, 'желтый', 'Dodge Charger', False)
 dodge.go()
+dodge.show_speed()
+dodge.turn('лево')
 
-ford = WorkCar(60, 'black', 'Ford')
-print(ford.speed, ford.color, ford.name)
-ford.turn('налево')
-
-bmw = PoliceCar(120, 'white', 'BMW')
-print(bmw.speed, bmw.color, bmw.name, bmw.is_police)
-bmw.stop()
+bmw = PoliceCar(100, 'белый', 'BMW', True)
+bmw.go()
+bmw.show_speed()
+bmw.turn('лево')
 
